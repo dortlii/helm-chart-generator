@@ -8,3 +8,8 @@ type Chart struct {
 	Version     string
 	AppVersion  string
 }
+
+// New creates an empty helm chart
+func NewChart() Chart {
+	return Chart{}
+}
