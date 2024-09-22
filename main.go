@@ -13,5 +13,11 @@ func main() {
 		log.Fatalf("Failed to create helm chart: %s", err)
 	}
 
-	fmt.Printf("This is my helm chart: %s", helmChart)
+	emptyHelmChart, err := generator.NewHelmChart("", "", "", "")
+	if err != nil {
+		log.Fatalf("Failed to create helm chart: %s", err)
+	}
+
+	fmt.Printf("This is my helm chart: %s\n", helmChart)
+	fmt.Printf("This is my empty helm chart: %s\n", emptyHelmChart)
 }
