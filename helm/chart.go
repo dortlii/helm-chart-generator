@@ -1,5 +1,6 @@
 package helm
 
+// Chart item of the helm chart, equals to Chart.yaml
 type Chart struct {
 	// ApiVersion represents the version of the helm chart schema
 	ApiVersion string
