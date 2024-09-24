@@ -2,7 +2,7 @@ package helm
 
 // Values of the helm chart, equals to a values.yaml file
 type Values struct {
-	Key string
+	Values []string `yaml:"values"`
 }
 
 // NewValues returns a new, empty Values object
