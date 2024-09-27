@@ -4,6 +4,11 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"path"
+)
+
+const (
+	chartFileName = "Chart.yaml"
 )
 
 // Chart item of the helm chart, equals to Chart.yaml
@@ -46,7 +51,9 @@ func (c Chart) Save(chartPath string) {
 		log.Fatal(err)
 	}
 
-	if err := os.WriteFile(chartPath, jsonData, os.ModePerm); err != nil {
+	filePath := path.Join(chartPath, chartFileName)
+
+	if err := os.WriteFile(filePath, jsonData, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
 }

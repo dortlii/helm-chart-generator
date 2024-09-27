@@ -4,6 +4,11 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"path"
+)
+
+const (
+	notesFileName = "Notes.txt"
 )
 
 // Template elements of the helm chart
@@ -30,7 +35,9 @@ func (t Template) Save(chartPath string) {
 		log.Fatal(err)
 	}
 
-	if err := os.WriteFile(chartPath, jsonData, os.ModePerm); err != nil {
+	notesFilePath := path.Join(chartPath, notesFileName)
+
+	if err := os.WriteFile(notesFilePath, jsonData, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
 }
