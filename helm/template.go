@@ -1,7 +1,6 @@
 package helm
 
 import (
-	"encoding/json"
 	"log"
 	"os"
 	"path"
@@ -14,13 +13,13 @@ const (
 // Template elements of the helm chart
 type Template struct {
 	// Notes content for the Template
-	Notes Notes `yaml:"notes"`
+	Notes Notes
 }
 
 // Notes for the helm chart functionality
 type Notes struct {
 	// Content describes the text which gets written to Notes
-	Content string `yaml:"content"`
+	Content string
 }
 
 // NewTemplate creates an empty template
@@ -30,14 +29,9 @@ func NewTemplate() Template {
 
 // Save implements the function how to save Template to the disk
 func (t Template) Save(chartPath string) {
-	jsonData, err := json.Marshal(t)
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	notesFilePath := path.Join(chartPath, notesFileName)
 
-	if err := os.WriteFile(notesFilePath, jsonData, os.ModePerm); err != nil {
+	if err := os.WriteFile(notesFilePath, []byte(t.Notes.Content), os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
 }
