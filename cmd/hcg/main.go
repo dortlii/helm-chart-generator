@@ -16,6 +16,12 @@ func main() {
 	// Add some text to the Template Notes for testing
 	helmChart.Template.Notes.Content = "I'm a note!"
 
+	// Add some values to Values for testing
+	helmChart.Values.Values = map[string]string{
+		"key":        "value",
+		"anotherKey": "anotherValue",
+	}
+
 	emptyHelmChart, err := generator.NewHelmChart("", "", "", "")
 	if err != nil {
 		log.Fatalf("Failed to create helm chart: %s", err)
@@ -25,6 +31,6 @@ func main() {
 	fmt.Printf("This is my empty helm chart: %s\n", emptyHelmChart)
 
 	// Save to disk
-	helm := generator.NewHelmFileService("/tmp/", helmChart)
-	helm.Save()
+	helm1 := generator.NewHelmFileService("/tmp/", helmChart)
+	helm1.Save()
 }
