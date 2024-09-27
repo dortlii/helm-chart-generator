@@ -1,10 +1,11 @@
 package helm
 
 import (
-	"encoding/json"
 	"log"
 	"os"
 	"path"
+
+	"gopkg.in/yaml.v3"
 )
 
 const (
@@ -23,14 +24,14 @@ func NewValues() Values {
 
 // Save implements the function how to save Values to the disk
 func (v Values) Save(chartPath string) {
-	jsonData, err := json.Marshal(v)
+	yamlData, err := yaml.Marshal(v)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	filePath := path.Join(chartPath, valuesFileName)
 
-	if err := os.WriteFile(filePath, jsonData, os.ModePerm); err != nil {
+	if err := os.WriteFile(filePath, yamlData, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
 }

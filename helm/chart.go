@@ -1,10 +1,11 @@
 package helm
 
 import (
-	"encoding/json"
 	"log"
 	"os"
 	"path"
+
+	"gopkg.in/yaml.v3"
 )
 
 const (
@@ -46,14 +47,14 @@ func SetDefaults(chart Chart) *Chart {
 
 // Save method for chart component
 func (c Chart) Save(chartPath string) {
-	jsonData, err := json.Marshal(c)
+	yamlData, err := yaml.Marshal(c)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	filePath := path.Join(chartPath, chartFileName)
 
-	if err := os.WriteFile(filePath, jsonData, os.ModePerm); err != nil {
+	if err := os.WriteFile(filePath, yamlData, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
 }
