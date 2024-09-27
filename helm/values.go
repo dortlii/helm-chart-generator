@@ -14,7 +14,7 @@ const (
 
 // Values of the helm chart, equals to a values.yaml file
 type Values struct {
-	Values []string `yaml:"values"`
+	Values []map[string]string `yaml:"values"`
 }
 
 // NewValues returns a new, empty Values object
