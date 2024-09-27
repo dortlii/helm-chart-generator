@@ -2,10 +2,12 @@ package helm
 
 // Helm chart components
 type Helm struct {
-	// Chart of the helm chart
-	Chart Chart `yaml:"chart"`
-	// Values of the helm chart
-	Values Values `yaml:"values"`
-	// Template of the helm chart
+	Chart    Chart    `yaml:"chart"`
 	Template Template `yaml:"template"`
+	Values   Values   `yaml:"values"`
+}
+
+// ComponentService exposes file operations
+type ComponentService interface {
+	Save(path string)
 }

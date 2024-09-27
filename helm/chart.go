@@ -1,5 +1,11 @@
 package helm
 
+import (
+	"encoding/json"
+	"log"
+	"os"
+)
+
 // Chart item of the helm chart, equals to Chart.yaml
 type Chart struct {
 	// ApiVersion represents the version of the helm chart schema
@@ -31,4 +37,16 @@ func SetDefaults(chart Chart) *Chart {
 	chart.Type = "application"
 
 	return &chart
+}
+
+// Save method for chart component
+func (c Chart) Save(path string) {
+	jsonData, err := json.Marshal(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err := os.WriteFile(path, jsonData, os.ModePerm); err != nil {
+		log.Fatal(err)
+	}
 }
