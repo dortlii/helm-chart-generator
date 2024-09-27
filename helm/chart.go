@@ -40,13 +40,13 @@ func SetDefaults(chart Chart) *Chart {
 }
 
 // Save method for chart component
-func (c Chart) Save(path string) {
+func (c Chart) Save(chartPath string) {
 	jsonData, err := json.Marshal(c)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if err := os.WriteFile(path, jsonData, os.ModePerm); err != nil {
+	if err := os.WriteFile(chartPath, jsonData, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
 }

@@ -4,6 +4,11 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"path"
+)
+
+const (
+	valuesFileName = "values.yaml"
 )
 
 // Values of the helm chart, equals to a values.yaml file
@@ -17,13 +22,15 @@ func NewValues() Values {
 }
 
 // Save implements the function how to save Values to the disk
-func (v Values) Save(path string) {
+func (v Values) Save(chartPath string) {
 	jsonData, err := json.Marshal(v)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if err := os.WriteFile(path, jsonData, os.ModePerm); err != nil {
+	filePath := path.Join(chartPath, valuesFileName)
+
+	if err := os.WriteFile(filePath, jsonData, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
 }

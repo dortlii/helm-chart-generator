@@ -12,12 +12,12 @@ type Helm struct {
 
 // ComponentService exposes file operations
 type ComponentService interface {
-	Save(path string)
+	Save(chartPath string)
 }
 
 // Save implements the function how to save Values to the disk
-func (h Helm) Save(path string) {
-	h.Chart.Save(path)
-	h.Values.Save(path)
-	h.Template.Save(path)
+func (h Helm) Save(chartPath string) {
+	h.Chart.Save(chartPath)
+	h.Values.Save(chartPath)
+	h.Template.Save(chartPath)
 }

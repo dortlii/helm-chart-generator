@@ -24,13 +24,13 @@ func NewTemplate() Template {
 }
 
 // Save implements the function how to save Template to the disk
-func (t Template) Save(path string) {
+func (t Template) Save(chartPath string) {
 	jsonData, err := json.Marshal(t)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if err := os.WriteFile(path, jsonData, os.ModePerm); err != nil {
+	if err := os.WriteFile(chartPath, jsonData, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
 }
