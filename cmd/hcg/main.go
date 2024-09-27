@@ -13,6 +13,9 @@ func main() {
 		log.Fatalf("Failed to create helm chart: %s", err)
 	}
 
+	// Add some text to the Template Notes for testing
+	helmChart.Template.Notes.Content = "I'm a note!"
+
 	emptyHelmChart, err := generator.NewHelmChart("", "", "", "")
 	if err != nil {
 		log.Fatalf("Failed to create helm chart: %s", err)
