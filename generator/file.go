@@ -49,7 +49,7 @@ func (hf HelmFiles) Save() error {
 
 	// Save all files to the filesystem
 	// TODO: Rethink the save cascading ...
-	hf.Helm.Save(hf.Path)
+	hf.Helm.Save(fullRootHelmPath)
 
 	return nil
 }
