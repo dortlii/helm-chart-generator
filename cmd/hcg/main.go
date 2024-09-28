@@ -31,6 +31,9 @@ func main() {
 	fmt.Printf("This is my empty helm chart: %s\n", emptyHelmChart)
 
 	// Save to disk
-	hfs := generator.NewHelmFileService("/tmp/", helmChart)
-	hfs.Save()
+	hfs := generator.NewHelmFileService("/tmp/", *helmChart)
+	err = hfs.Save()
+	if err != nil {
+		log.Fatalf("Failed to save helm chart: %s", err)
+	}
 }

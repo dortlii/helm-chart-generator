@@ -3,7 +3,7 @@ package generator
 import "github.com/dortlii/helm-chart-generator/helm"
 
 // NewHelmChart takes parameters to create a helm.Helm object and returns it
-func NewHelmChart(apiVersion, name, version, helmType string) (helm.Helm, error) {
+func NewHelmChart(apiVersion, name, version, helmType string) (*helm.Helm, error) {
 	chart := fillChart(apiVersion, name, version, helmType)
 	values := helm.NewValues()
 	template := helm.NewTemplate()
@@ -14,7 +14,7 @@ func NewHelmChart(apiVersion, name, version, helmType string) (helm.Helm, error)
 		Template: template,
 	}
 
-	return helmChart, nil
+	return &helmChart, nil
 }
 
 // fillChart creates a new, empty helm.Chart object, fills it with default
