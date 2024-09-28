@@ -8,12 +8,14 @@ import (
 )
 
 // createHelmChart Helper function to create a Helm chart
-func createHelmChart(version, name, chartVersion, appType string) (*helm.Helm, error) {
+func createHelmChart(t testing.TB, version, name, chartVersion, appType string) (*helm.Helm, error) {
+	t.Helper()
 	return generator.NewHelmChart(version, name, chartVersion, appType)
 }
 
 // verifyHelmChartContent Helper function to verify the content of the Helm chart
 func verifyHelmChartContent(t *testing.T, helmChart *helm.Helm, expectedNote string, expectedValues map[string]string) {
+	t.Helper()
 	if helmChart.Template.Notes.Content != expectedNote {
 		t.Errorf("Expected note content %s, but got %s", expectedNote, helmChart.Template.Notes.Content)
 	}
@@ -27,13 +29,13 @@ func verifyHelmChartContent(t *testing.T, helmChart *helm.Helm, expectedNote str
 
 func TestHelmCharts(t *testing.T) {
 	tests := []struct {
+		expectedValues map[string]string
 		name           string
 		version        string
 		chartName      string
 		chartVersion   string
 		appType        string
 		expectedNote   string
-		expectedValues map[string]string
 	}{
 		{
 			name:         "Valid Helm Chart",
@@ -60,7 +62,13 @@ func TestHelmCharts(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			helmChart, err := createHelmChart(tt.version, tt.chartName, tt.chartVersion, tt.appType)
+			helmChart, err := createHelmChart(
+				t,
+				tt.version,
+				tt.chartName,
+				tt.chartVersion,
+				tt.appType,
+			)
 			if err != nil {
 				t.Fatalf("Failed to create helm chart: %s", err)
 			}
