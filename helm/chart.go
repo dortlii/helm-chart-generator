@@ -35,7 +35,7 @@ func NewChart() Chart {
 
 // SetDefaults adds default values to a Chart struct
 func SetDefaults(chart Chart) *Chart {
-	chart.ApiVersion = "2"
+	chart.ApiVersion = "v2"
 	chart.AppVersion = "0.0.0"
 	chart.Version = "0.0.0"
 	chart.Name = "default"

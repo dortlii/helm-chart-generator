@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	helmChart, err := generator.NewHelmChart("2", "myChart", "1.0.0", "application")
+	helmChart, err := generator.NewHelmChart("v2", "myChart", "1.0.0", "application")
 	if err != nil {
 		log.Fatalf("Failed to create helm chart: %s", err)
 	}
