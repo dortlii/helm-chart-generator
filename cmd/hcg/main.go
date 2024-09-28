@@ -31,6 +31,6 @@ func main() {
 	fmt.Printf("This is my empty helm chart: %s\n", emptyHelmChart)
 
 	// Save to disk
-	helm1 := generator.NewHelmFileService("/tmp/", helmChart)
-	helm1.Save()
+	hfs := generator.NewHelmFileService("/tmp/", helmChart)
+	hfs.Save()
 }
