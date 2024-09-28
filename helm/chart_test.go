@@ -64,7 +64,63 @@ func TestSetDefaults(t *testing.T) {
 		args args
 		want *Chart
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Invalid defaults",
+			args: args{Chart{
+				ApiVersion:  "v2",
+				Name:        "not-default",
+				Type:        "application",
+				Description: "A Helm chart for Kubernetes",
+				Version:     "0.1.0",
+				AppVersion:  "1.16.0",
+			}},
+			want: &Chart{
+				ApiVersion:  "v2",
+				Name:        "default",
+				Type:        "application",
+				Description: "description",
+				Version:     "0.0.0",
+				AppVersion:  "0.0.0",
+			},
+		},
+		{
+			name: "Empty fields",
+			args: args{Chart{
+				ApiVersion:  "",
+				Name:        "",
+				Type:        "",
+				Description: "",
+				Version:     "",
+				AppVersion:  "",
+			}},
+			want: &Chart{
+				ApiVersion:  "v2",
+				Name:        "default",
+				Type:        "application",
+				Description: "description",
+				Version:     "0.0.0",
+				AppVersion:  "0.0.0",
+			},
+		},
+		{
+			name: "Incorrect values",
+			args: args{Chart{
+				ApiVersion:  "v1",
+				Name:        "default",
+				Type:        "library",
+				Description: "A Helm chart for Kubernetes",
+				Version:     "0.1.0",
+				AppVersion:  "1.16.0",
+			}},
+			want: &Chart{
+				ApiVersion:  "v2",
+				Name:        "default",
+				Type:        "application",
+				Description: "description",
+				Version:     "0.0.0",
+				AppVersion:  "0.0.0",
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
