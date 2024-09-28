@@ -47,12 +47,16 @@ func (hf HelmFiles) Save() error {
 		createFolder(helmDestFolder)
 	}
 
+	// Save all files to the filesystem
+	// TODO: Rethink the save cascading ...
+	hf.Helm.Save(fullRootHelmPath)
+
 	return nil
 }
 
 // createFolder helper function
-func createFolder(path string) {
-	if err := os.Mkdir(path, os.ModePerm); err != nil {
+func createFolder(folderPath string) {
+	if err := os.Mkdir(folderPath, os.ModePerm); err != nil {
 		log.Fatal(err)
 	}
 }

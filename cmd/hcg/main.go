@@ -8,9 +8,18 @@ import (
 )
 
 func main() {
-	helmChart, err := generator.NewHelmChart("2", "myChart", "1.0.0", "application")
+	helmChart, err := generator.NewHelmChart("v2", "myChart", "1.0.0", "application")
 	if err != nil {
 		log.Fatalf("Failed to create helm chart: %s", err)
+	}
+
+	// Add some text to the Template Notes for testing
+	helmChart.Template.Notes.Content = "I'm a note!"
+
+	// Add some values to Values for testing
+	helmChart.Values.Values = map[string]string{
+		"key":        "value",
+		"anotherKey": "anotherValue",
 	}
 
 	emptyHelmChart, err := generator.NewHelmChart("", "", "", "")
@@ -22,6 +31,6 @@ func main() {
 	fmt.Printf("This is my empty helm chart: %s\n", emptyHelmChart)
 
 	// Save to disk
-	helm := generator.NewHelmFileService("/tmp/", helmChart)
-	helm.Save()
+	hfs := generator.NewHelmFileService("/tmp/", helmChart)
+	hfs.Save()
 }

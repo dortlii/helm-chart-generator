@@ -1,5 +1,17 @@
 package helm
 
+import (
+	"log"
+	"os"
+	"path"
+
+	"gopkg.in/yaml.v3"
+)
+
+const (
+	chartFileName = "Chart.yaml"
+)
+
 // Chart item of the helm chart, equals to Chart.yaml
 type Chart struct {
 	// ApiVersion represents the version of the helm chart schema
@@ -23,7 +35,7 @@ func NewChart() Chart {
 
 // SetDefaults adds default values to a Chart struct
 func SetDefaults(chart Chart) *Chart {
-	chart.ApiVersion = "2"
+	chart.ApiVersion = "v2"
 	chart.AppVersion = "0.0.0"
 	chart.Version = "0.0.0"
 	chart.Name = "default"
@@ -31,4 +43,18 @@ func SetDefaults(chart Chart) *Chart {
 	chart.Type = "application"
 
 	return &chart
+}
+
+// Save method for chart component
+func (c Chart) Save(chartPath string) {
+	yamlData, err := yaml.Marshal(c)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	filePath := path.Join(chartPath, chartFileName)
+
+	if err := os.WriteFile(filePath, yamlData, os.ModePerm); err != nil {
+		log.Fatal(err)
+	}
 }

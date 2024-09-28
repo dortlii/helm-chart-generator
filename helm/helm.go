@@ -9,3 +9,15 @@ type Helm struct {
 	// Template of the helm chart
 	Template Template `yaml:"template"`
 }
+
+// ComponentService exposes file operations
+type ComponentService interface {
+	Save(chartPath string)
+}
+
+// Save implements the function how to save Values to the disk
+func (h Helm) Save(chartPath string) {
+	h.Chart.Save(chartPath)
+	h.Values.Save(chartPath)
+	h.Template.Save(chartPath)
+}
