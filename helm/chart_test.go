@@ -44,7 +44,10 @@ func TestNewChart(t *testing.T) {
 		name string
 		want Chart
 	}{
-		// TODO: Add test cases.
+		{
+			name: "Correct Chart struct",
+			want: Chart{},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
